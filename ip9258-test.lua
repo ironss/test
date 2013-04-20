@@ -2,16 +2,8 @@
 
 ip9258 = require 'ip9258'
 
-swid = arg[1]
-state = arg[2]
-
---print(swid, state)
-
-d1 = ip9258.new('172.16.163.208', '80', 'admin', '12345678')
+d1 = ip9258.new('172.16.163.209', '80', 'admin', '12345678')
 d1:beeper(0)
-
---s = d1.switch[swid]
---s:set(state)
 
 state = 1
 operations = 0

@@ -8,7 +8,7 @@ end
 
 local function set(sw, status)
    local dev = sw.device
-   local cmd = 'Set.cmd?CMD=SetPower+P6' .. sw.swid .. '=' .. status .. ' -q -O-'
+   local cmd = 'Set.cmd?CMD=SetPower+P6' .. sw.swid .. '=' .. status
    dev:command(cmd)
 end
 

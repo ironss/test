@@ -11,7 +11,7 @@ Investigation
 
 Wrote a script that changes the state of all four switches every second.
 
-The script would occasionally hang -- every 100 -- 1000 cycles.
+The script would occasionally hang -- every 50, 100 -- 200 cycles.
 
 * sometimes with the old state of the switch, so the IP9258 had not
   processed the command
@@ -34,8 +34,18 @@ across -- the first one without credentials, so it failed
 authentication. It then send a second request with the
 credentails; this one succeeded.
 
+Also noticed that the IP9258 sends a UDP broadcast to port 15000 every
+time a switch state changes. This is apparently the hydap protocol
+(Hypack Data Acquisition Protocol). Can't see a way to turn it off.
+
 Changed to use curl rather than wget (actually want to use libcurl
 directly from Lua, but that can come later).
+
+* curl supports disabling TCP keepalives (wget only allows disabling 
+  of HTTP keepalives)
+  
+* curl sends credentials with first request
+
 
 
 Results

@@ -51,7 +51,7 @@ directly from Lua, but that can come later).
 Results
 =======
 
-* No hangs after 1000 cycles
+* No hangs after 4000 cycles on one box and 1000 cycles on the other.
 
 * Only one http request per state change, as it sends the credential
   as expected. It might have been my old version of wget.
@@ -66,5 +66,9 @@ How was Neil sending commands to the IP9258?
 Further work
 ============
 
-Recover 12.16.163.108 -- it never recovered after resetting to factory
-defaults.  
+Could not log in to 172.16.163.108 via WUI -- it hangs after entering
+the username and password. Unit sometimes resets too.
+
+Tried resetting to factory defaults -- 192.168.1.100, admin, 12345678
+
+Still cannot log in via WUI, but can control it using test program.

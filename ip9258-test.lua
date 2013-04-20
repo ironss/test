@@ -14,10 +14,14 @@ d1:beeper(0)
 --s:set(state)
 
 state = 1
+operations = 0
 while true do
    state = 1 - state
    for _, sw in ipairs(d1.switches) do
       sw:set(state)
    end
+   operations = operations + 1
+   print(operations)
+   os.execute('sleep 1')
 end
 

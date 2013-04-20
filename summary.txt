@@ -1,0 +1,60 @@
+IP9258 unreliable
+#################
+
+Engineer claimed that the IP9258 power switch was 'unreliable'.
+
+It would sometimes not change state when expected.
+
+
+Investigation
+=============
+
+Wrote a script that changes the state of all four switches every second.
+
+The script would occasionally hang -- every 100 -- 1000 cycles.
+
+* sometimes with the old state of the switch, so the IP9258 had not
+  processed the command
+
+* sometimes with the new state of the switch, so the IP9258 had
+  finished processing the command
+  
+Ran wireshark to see what was going on.
+
+Found that TCP acks were getting lost, or duplicates were being
+received -- this is the nature of ethernet comms, although it 
+seemed to be a bit often, given that the only devices on the 
+network were the PC and the IP9258 -- directly connected.
+
+wget (the executable used to send the command to the switch)
+was not recovering from the lost or duplicate ACK.
+
+Also noticed that wget was taking two goes to get the command
+across -- the first one without credentials, so it failed
+authentication. It then send a second request with the
+credentails; this one succeeded.
+
+Changed to use curl rather than wget (actually want to use libcurl
+directly from Lua, but that can come later).
+
+
+Results
+=======
+
+* No hangs after 1000 cycles
+
+* Only one http request per state change, as it sends the credential
+  as expected. It might have been my old version of wget.
+  
+  
+Questions
+=========
+
+How was Neil sending commands to the IP9258?
+
+
+Further work
+============
+
+Recover 12.16.163.108 -- it never recovered after resetting to factory
+defaults.  

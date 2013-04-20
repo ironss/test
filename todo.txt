@@ -1,0 +1,5 @@
+1. Use library rather than shelling out to wget.
+
+2. Use a logging system rather than print()
+
+

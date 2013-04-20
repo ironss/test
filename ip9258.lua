@@ -50,11 +50,13 @@ local function new(ip, port, user, pass, name)
    end
 
    device.command = function(dev, cmd)
-      local wget_cmd = 'wget http://' .. dev.user .. ':' .. dev.pass .. '@' .. dev.ip .. ':' .. dev.port .. '/'
-      wget_cmd = wget_cmd .. cmd .. ' -q -O-'
+      local url = 'http://' .. dev.user .. ':' .. dev.pass .. '@' .. dev.ip .. ':' .. dev.port .. '/'
+--      local cmdline = 'wget -q -O- --no-http-keep-alive '
+      local cmdline = 'curl -s -S -m 2 --no-keepalive '
+      cmdline = cmdline .. ' ' .. url .. cmd
 
-		print(wget_cmd)
-		local f = io.popen(wget_cmd)
+		print(cmdline)
+		local f = io.popen(cmdline)
 		for l in f:lines() do
 			print(l)
 		end

@@ -2,12 +2,22 @@
 
 ip9258 = require 'ip9258'
 
-switch = arg[1]
+swid = arg[1]
 state = arg[2]
 
-sw1 = ip9258.new('172.16.163.208', '80', 'admin', '12345678', switch)
-sw1:set(state)
+--print(swid, state)
 
-sw2 = ip9258.new('172.16.163.209', '80', 'admin', '12345678', switch)
--- sw2:set(state)
+d1 = ip9258.new('172.16.163.208', '80', 'admin', '12345678')
+d1:beeper(0)
+
+--s = d1.switch[swid]
+--s:set(state)
+
+state = 1
+while true do
+   state = 1 - state
+   for _, sw in ipairs(d1.switches) do
+      sw:set(state)
+   end
+end
 
